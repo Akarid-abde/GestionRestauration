@@ -15,9 +15,9 @@
 						<div class="col-md-8">
 							<div class="d-flex flex-row justify-content-between align-items-center border-bottom-pb1">
 								<h3 class="text-secoundry">
-									<i class="fas fa-chair"></i> Tables
+									<i class="fas fa-user-cog"></i> Sérveurs
 								</h3>
-								<a href="{{ url('/Tables/create') }}" class="btn btn-primary">
+								<a href="{{ url('/Servant/create') }}" class="btn btn-primary">
 									<i class="fas fa-plus fa-x"></i> 
 								</a>
 							</div>
@@ -27,45 +27,37 @@
 								<thead>
 									<tr>
 									<th>ID</th>
-									<th>Nom</th>
-									<th>Disponible</th>
+									<th>Nom et Prenom</th>
+									<th>address</th>
 									<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
 									
-									@foreach($tables as $table)
+									@foreach($serveurs as $serveur)
 									<tr>
 										<td>
-										{{$table->id}}
+										{{$serveur->id}}
 									</td>
 									<td>
-										{{$table->name}}
+										{{$serveur->name}}
 									</td>
 									<td>
-										@if($table->status)
-										<span class="badge badge-success">
-											OUI
-										</span>
-										@else
-										<span class="badge badge-danger">
-											NON
-										</span>
-										@endif
+										{{$serveur->address}}
 									</td>
 									<td>
 										<div class="row mr-4">
-										<a href="{{ url('/Tables/edit/'.$table->id) }}"  
+												<a href="{{ url('/Servant/edit/'.$serveur->id) }}"  
 										class="btn btn-warning"><i class="fas fa-edit"></i></a>
 
-									<form id="{{$table->id}}" action= "{{url('/Tables/delete/'.$table->id)}}"  method="post"> 
+									<form id="{{$serveur->id}}" action= "{{url('/Servant/delete/'.$serveur->id)}}"  method="post"> 
 										@csrf
 										@method("get")
 											<button 
 											onclick="
 											event.preventDefault();
-									if(confirm('Voulez vous supprimer la table {{$table->id}} ?'))
-												document.getElementById({{$table->id}}).submit()	
+											if(confirm('Voulez vous supprimer la servaur {{$serveur->id}} ?'))
+												document.getElementById({{$serveur->id}}).submit()	
 											"  
 											class="btn btn-danger">
 											<i class="fas fa-trash"></i>

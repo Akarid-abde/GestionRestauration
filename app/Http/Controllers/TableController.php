@@ -81,10 +81,10 @@ class TableController extends Controller
      * @param  \App\Table  $table
      * @return \Illuminate\Http\Response
      */
-    public function edit(Table $table,$id)
+    public function edit($id)
     {
-        $category = category::find($id);
-        return view("managemants.tables.edit")->with([
+        $table = Table::find($id);
+        return view("managemants/tables/edite")->with([
             "table" =>  $table,
         ]);
     }
@@ -96,7 +96,7 @@ class TableController extends Controller
      * @param  \App\Table  $table
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Table $id)
+    public function update(Request $request,$id)
     {
         $ta = Table::find($id);
         //validateur
@@ -113,7 +113,6 @@ class TableController extends Controller
 
         ]);
         //redirect User
-
         return redirect("/Tables")->with([
             "success" => "tables Modification avec Success" 
 

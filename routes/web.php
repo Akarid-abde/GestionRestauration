@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\ServantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,13 @@ Route::get('/Tables/edit/{id}','TableController@edit');
 Route::post('/Tables/store','TableController@store');
 Route::get('/Tables/delete/{id}','TableController@destroy');
 Route::put('/Tables/update/{id}','TableController@update');
+
+#serveur for tables 
+Route::resource('/Servant','ServantController');
+Route::get('/Servant/create','ServantController@create');
+Route::get('/Servant/edit/{id}','ServantController@edit');
+Route::post('/Servant/store','ServantController@store');
+Route::get('/Servant/delete/{id}','ServantController@destroy');
+Route::put('/Servant/update/{id}','ServantController@update');
+
+

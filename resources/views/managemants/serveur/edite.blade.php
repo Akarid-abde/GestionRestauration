@@ -14,10 +14,9 @@
 						</div>
 						<div class="col-md-8">
 								<h3 class="text-secoundry border-bottom mb-3 p-2">
-									<i class="fas fa-plus"></i>Modifier la Table 
-									{{$table->name}}
+									<i class="fas fa-plus"></i>Modifier  Serveur {{$serveur->name}}
 								</h3>
-							<form action=" {{url('/Tables/update/'.$table->id) }} " method="post">
+							<form action=" {{url('/Servant/update/'.$serveur->id) }} " method="post">
 								<input type="hidden" name="_method" value="PUT">
                                 {{ csrf_field() }}
 								<div class="form-group">
@@ -25,30 +24,20 @@
 									type="text"  
 									id="name" 
 									name="name"
-									value="{{$table->name}}" 
+									value="{{$serveur->name}}" 
 									class="form-control" 
 									placeholder="Nom" 
 									>
 								</div>
-								<label> 
-                                 		@if($table->status)
-										<span class="badge badge-success">
-											Disponible
-										</span>
-										@else
-										<span class="badge badge-danger">
-											Non Disponible
-										</span>
-										@endif
-								</label>
-								<div class="form-group">
-									<select name="status" class="form-control">
-										<option value="" selected="true" disabled="true">
-											Disponible
-										</option>
-										<option value="1">OUI</option>
-										<option value="0">NON</option>
-									</select>
+									<div class="form-group">
+									<input 
+									type="text"  
+									id="address" 
+									name="address"
+									value="{{$serveur->address}}" 
+									class="form-control" 
+									placeholder="Address" 
+									>
 								</div>
 								<div class="form-group">
 									<button class="btn btn-primary" style="border-radius:15px;">

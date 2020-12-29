@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class ServantController extends Controller
 {
+       public function __construct()
+    {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,9 @@ class ServantController extends Controller
      */
     public function index()
     {
-        //
+       return view("managemants.serveur.index")->with([
+            "serveurs" => servant::paginate(5),
+        ]);
     }
 
     /**
@@ -24,7 +30,7 @@ class ServantController extends Controller
      */
     public function create()
     {
-        //
+         return view("managemants.serveur.create");
     }
 
     /**
@@ -35,7 +41,20 @@ class ServantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validateur
+        $this->validate($request,[
+            'name' => "required|min:3",
+        ]);
+        //store data
+        servant::create([
+            'name'  => $request->name,
+            'address' => $request->address
+        ]);
+        //redirect User
+        return redirect("/Servant")->with([
+            "success" => "serveur Ajoute avec Success" 
+
+        ]); 
     }
 
     /**
@@ -55,9 +74,12 @@ class ServantController extends Controller
      * @param  \App\servant  $servant
      * @return \Illuminate\Http\Response
      */
-    public function edit(servant $servant)
+    public function edit($id)
     {
-        //
+         $serveur = servant::find($id);
+        return view("managemants/serveur/edite")->with([
+            "serveur" =>  $serveur,
+        ]);
     }
 
     /**
@@ -67,9 +89,25 @@ class ServantController extends Controller
      * @param  \App\servant  $servant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, servant $servant)
+    public function update(Request $request,$id)
     {
-        //
+        $se = servant::find($id);
+        //validateur
+        $this->validate($request,[
+            'name' => "required|min:3",
+            'address' =>  "required"
+
+        ]);
+        //store data
+         $se->update([
+            'name'  => $request->name,
+            'address'  => $request->address
+
+        ]);
+        //redirect User
+        return redirect("/Servant")->with([
+            "success" => "serveur Modification avec Success" 
+        ]); 
     }
 
     /**
@@ -78,8 +116,12 @@ class ServantController extends Controller
      * @param  \App\servant  $servant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(servant $servant)
+    public function destroy($id)
     {
-        //
+        $serveur = servant::find($id);
+        $serveur->delete();
+        return redirect("/Servant")->with([
+            "success" => "servaur Supprision avec Success"
+        ]);
     }
 }
