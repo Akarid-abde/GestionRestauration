@@ -42,9 +42,25 @@
 										{{$category->title}}
 									</td>
 									<td>
-										<a href="{{ url('/edit/'.$category->id) }}"  
-										class="btn btn-warning"><i class="fas fa-edit"></i>edit</a>
-										<a href="{{url('/delete/'.$category->id)}}" class="btn btn-danger">Delete</a>
+										<div class="row mr-4">
+												<a href="{{ url('/edit/'.$category->id) }}"  
+										class="btn btn-warning"><i class="fas fa-edit"></i></a>
+
+									<form id="{{$category->id}}" action= "{{url('/delete/'.$category->id)}}"  method="post"> 
+										@csrf
+										@method("get")
+											<button 
+											onclick="
+											event.preventDefault();
+											if(confirm('Voulez vous supprimer la categories {{$category->id}} ?'))
+												document.getElementById({{$category->id}}).submit()	
+											"  
+											class="btn btn-danger">
+											<i class="fas fa-trash"></i>
+											</button>
+										</form>
+										</div>
+										
 									</td>
 									</tr>
 									@endforeach
