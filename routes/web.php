@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TableController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +31,12 @@ Route::get('/edit/{id}','CategoryController@edit');
 Route::post('/store','CategoryController@store');
 Route::get('/delete/{id}','CategoryController@destroy');
 Route::put('/update/{id}','CategoryController@update');
+
+
+#route for tables 
+Route::resource('/Tables','TableController');
+Route::get('/Tables/create','TableController@create');
+Route::get('/Tables/edit/{id}','TableController@edit');
+Route::post('/Tables/store','TableController@store');
+Route::get('/Tables/delete/{id}','TableController@destroy');
+Route::put('/Tables/update/{id}','TableController@update');

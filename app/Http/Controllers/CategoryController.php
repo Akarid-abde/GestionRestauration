@@ -47,7 +47,7 @@ class CategoryController extends Controller
     {
         //validateur
         $this->validate($request,[
-            'title' => "required"
+            'title' => "required|min:3"
         ]);
         //store data
         $title  = $request->title;

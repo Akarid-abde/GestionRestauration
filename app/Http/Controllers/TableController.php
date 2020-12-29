@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Validator;
 
 class TableController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,9 @@ class TableController extends Controller
      */
     public function index()
     {
-        //
+         return view("managemants.tables.index")->with([
+            "tables" => Table::paginate(5),
+        ]);
     }
 
     /**
@@ -24,7 +33,7 @@ class TableController extends Controller
      */
     public function create()
     {
-        //
+        return view("managemants.tables.create");
     }
 
     /**
@@ -35,7 +44,24 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validateur
+        $this->validate($request,[
+            'name' => "required|unique:tables,name",
+            'status' => "required|boolean"
+        ]);
+        //store data
+        $name  = $request->name;
+        Table::create([
+            'name'  => $name,
+            'slug' => Str::slug($name),
+            'status' => $request->status
+
+        ]);
+        //redirect User
+        return redirect("/Tables")->with([
+            "success" => "table Ajoute avec Success" 
+
+        ]); 
     }
 
     /**
@@ -55,9 +81,12 @@ class TableController extends Controller
      * @param  \App\Table  $table
      * @return \Illuminate\Http\Response
      */
-    public function edit(Table $table)
+    public function edit(Table $table,$id)
     {
-        //
+        $category = category::find($id);
+        return view("managemants.tables.edit")->with([
+            "table" =>  $table,
+        ]);
     }
 
     /**
@@ -67,9 +96,28 @@ class TableController extends Controller
      * @param  \App\Table  $table
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Table $table)
+    public function update(Request $request, Table $id)
     {
-        //
+        $ta = Table::find($id);
+        //validateur
+        $this->validate($request,[
+            'name' => "unique:tables,name,".$ta->id,
+            'status' => "required"
+        ]);
+        //store data
+        $name  = $request->name;
+         $ta->update([
+            'name'  => $name,
+            'slug' => Str::slug($name),
+            'status' => $request->status
+
+        ]);
+        //redirect User
+
+        return redirect("/Tables")->with([
+            "success" => "tables Modification avec Success" 
+
+        ]); 
     }
 
     /**
@@ -78,8 +126,13 @@ class TableController extends Controller
      * @param  \App\Table  $table
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Table $table)
+    public function destroy($id)
     {
-        //
+        $ta = Table::find($id);
+        $ta->delete();
+        return redirect("/Tables")->with([
+            "success" => "table Supprision avec Success" 
+
+        ]);
     }
 }
