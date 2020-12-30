@@ -15,9 +15,9 @@
 						<div class="col-md-8">
 							<div class="d-flex flex-row justify-content-between align-items-center border-bottom-pb1">
 								<h3 class="text-secoundry">
-									<i class="fas fa-chair"></i> Tables
+									<i class="fas fa-clipboard-list"></i> Menu
 								</h3>
-								<a href="{{ url('/Tables/create') }}" class="btn btn-primary">
+								<a href="{{ url('/Menu/create') }}" class="btn btn-primary">
 									<i class="fas fa-plus fa-x"></i> 
 								</a>
 							</div>
@@ -25,45 +25,68 @@
 								<thead>
 									<tr>
 									<th>ID</th>
-									<th>Nom</th>
-									<th>Disponible</th>
+									<th>title</th>
+									<th>description</th>
+									<th>price</th>
+									<th>category_id</th>
+									<th>image</th>
 									<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									
-									@foreach($tables as $table)
+									@foreach($menus as $menu)
 									<tr>
 										<td>
-										{{$table->id}}
+										{{$menu->id}}
 									</td>
 									<td>
-										{{$table->name}}
+										{{$menu->title}}
+									</td>
+										<td>
+										{{ substr($menu->description,0,100)}}
+									</td>
+									
+										<td>
+										{{$menu->price}} DH
+									</td>
+									
+										<td>
+										{{$menu->category_id}}
 									</td>
 									<td>
-										@if($table->status)
+										<img src="{{ asset('images/menus/'.$menu->image) }}" 
+										alt="{{ $menu->title }}" style="border-radius: 10%" 
+										width="60" height="60">
+									</td>
+								<!-- 	<td>
+										@if($menu->image)
 										<span class="badge badge-success">
-											OUI
+											$menu->image
 										</span>
 										@else
 										<span class="badge badge-danger">
-											NON
+											Pas Desponible
 										</span>
 										@endif
-									</td>
+									</td> -->
 									<td>
-										<div class="row mr-4">
-										<a href="{{ url('/Tables/edit/'.$table->id) }}"  
-										class="btn btn-warning"><i class="fas fa-edit"></i></a>
+									<div class="row mr-4">
+										<a href="{{ url('/Menu/edit/'.$menu->id) }}"  
+										class="btn btn-warning">
+										<i class="fas fa-edit"></i>
+									    </a>
 
-									<form id="{{$table->id}}" action= "{{url('/Tables/delete/'.$table->id)}}"  method="post"> 
+									<form 
+									    id="{{$menu->id}}" 
+										action= "{{url('/Menu/delete/'.$menu->id)}}"  
+										method="post"> 
 										@csrf
 										@method("get")
 											<button 
 											onclick="
 											event.preventDefault();
-									if(confirm('Voulez vous supprimer la table {{$table->id}} ?'))
-												document.getElementById({{$table->id}}).submit()	
+									if(confirm('Voulez vous supprimer la table {{$menu->id}} ?'))
+												document.getElementById({{$menu->id}}).submit()	
 											"  
 											class="btn btn-danger">
 											<i class="fas fa-trash"></i>

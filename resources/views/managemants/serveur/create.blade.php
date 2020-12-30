@@ -10,7 +10,7 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-4">
-							SidBar
+							@include('layouts.sidbar')
 						</div>
 						<div class="col-md-8">
 								<h3 class="text-secoundry border-bottom mb-3 p-2">

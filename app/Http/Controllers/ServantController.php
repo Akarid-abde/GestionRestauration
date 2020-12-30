@@ -95,7 +95,6 @@ class ServantController extends Controller
         //validateur
         $this->validate($request,[
             'name' => "required|min:3",
-            'address' =>  "required"
 
         ]);
         //store data

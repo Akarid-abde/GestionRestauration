@@ -42,12 +42,20 @@ Route::post('/Tables/store','TableController@store');
 Route::get('/Tables/delete/{id}','TableController@destroy');
 Route::put('/Tables/update/{id}','TableController@update');
 
-#serveur for tables 
+#Route for Servaur 
 Route::resource('/Servant','ServantController');
 Route::get('/Servant/create','ServantController@create');
 Route::get('/Servant/edit/{id}','ServantController@edit');
 Route::post('/Servant/store','ServantController@store');
 Route::get('/Servant/delete/{id}','ServantController@destroy');
 Route::put('/Servant/update/{id}','ServantController@update');
+
+#Route for Menu 
+Route::resource('/Menu','MenuController');
+Route::get('/Menu/create','MenuController@create');
+Route::get('/Menu/edit/{id}','MenuController@edit');
+Route::post('/Menu/store','MenuController@store');
+Route::get('/Menu/delete/{id}','MenuController@destroy');
+Route::put('/Menu/update/{id}','MenuController@update');
 
 
