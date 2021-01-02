@@ -21,6 +21,7 @@
 									<i class="fas fa-plus fa-x"></i> 
 								</a>
 							</div>
+						</div>
 					<table class="table table-hover table-responsive-sm">
 								<thead>
 									<tr>
@@ -100,7 +101,6 @@
 									
 								</tbody>
 							</table>
-							</div>
 					</div>
 				</div>
 			</div>

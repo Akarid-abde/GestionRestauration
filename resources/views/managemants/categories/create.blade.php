@@ -24,6 +24,7 @@
 									name="title"
 									class="form-control" 
 									placeholder="Title" 
+									value="{{ old('title') }}"
 									>
 								</div>
 								<div class="form-group">

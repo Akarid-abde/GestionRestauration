@@ -24,6 +24,7 @@
 									name="name"
 									class="form-control" 
 									placeholder="Nom" 
+									value="{{ old('name') }}"
 									>
 								</div>
 								<div class="form-group">
@@ -31,6 +32,7 @@
 									name="address"
 									class="form-control"
 									placeholder="Address" 
+									value="{{ old('address') }}"
 									>
 								</div>
 								<div class="form-group">

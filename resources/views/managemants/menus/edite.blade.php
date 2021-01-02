@@ -19,6 +19,18 @@
 							<form action="{{ url('/Menu/update/'.$menus->id) }}" method="post">
 								<input type="hidden" name="_method" value="PUT">
                                 {{ csrf_field() }}
+                                <div class="form-group">
+                                	<label>Category_ID</label>
+									<input 
+									type="text"  
+									id="category_id" 
+									name="category_id"
+									value="{{ $menus->category_id }}" 
+									class="form-control" 
+									placeholder="category_id" 
+									disabled="true" 
+									>
+								</div>
 							<div class="form-group">
 									<input 
 									type="text"  
@@ -60,7 +72,8 @@
 									</div>
 								</div>
 								<div class="my-2">
-									<img src="{{asset('images/menus/'.$menus->image)}}"
+									<img 
+									src="{{asset('images/menus/'.$menus->image)}}"
 									width="200" height="200" 
 									class="mg-8" 
 									alt="{{$menus->title}}">
@@ -75,10 +88,9 @@
 									<input 
 									type="file"  
 									id="image" 
-									name="image"
+									name="image" 
 									class="custom-file-input" 
-									placeholder="Image"
-									>
+									placeholder="Image">
 									<label class="custom-file-label">
 										2mg max
 									</label>
@@ -86,10 +98,12 @@
 								</div>
 								<div class="form-group">
 									<select name="category_id"  id="category_id" class="form-control">
-									<option disabled="true" selected="true">Choisir Une Categorie
-									</option>
 										@foreach($categories as $category)
-										<option value="{{ $category->id }}">
+										<option value="{{$category->id}}"
+											<?php if ($category->id == $menus->category->id): ?>
+												selected='true'
+											<?php endif ?>
+										>
 										{{$category->title}}
 										</option>
 										@endforeach
@@ -109,6 +123,4 @@
 
 	</div>
 </div>
-
-
 @endsection

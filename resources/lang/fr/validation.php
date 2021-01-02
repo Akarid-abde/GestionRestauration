@@ -97,9 +97,12 @@ return [
     |
     */
 
-    'custom'               => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+    'custom' => [
+        'image' => [
+            'required' => 'le champ est obligatoire',
+            'image' => 'le fichier n\'est pas valide',
+            'mimes' => 'seul les fichier png,jpg,jpeg est valider',
+            'max' => 'la taille d\'image ne doit passer :max kilo-byte'
         ],
     ],
 

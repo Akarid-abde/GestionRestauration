@@ -25,6 +25,7 @@
 									name="title"
 									class="form-control" 
 									placeholder="Title" 
+									value="{{ old('title') }}"
 									>
 								</div>
 								<div class="input-group  mb-3">
@@ -34,6 +35,7 @@
 									rows="5" cols="50"
 									class="form-control" 
 									>	
+									{{ old('description') }}
 									</textarea> 
 								</div>
 								<div class="input-group mb-3">
@@ -47,6 +49,7 @@
 									name="price"
 									class="form-control" 
 									placeholder="Prix"
+									value="{{ old('price') }}"
 									>
 									<div class="input-group-append">
 									<div class="input-group-text">
