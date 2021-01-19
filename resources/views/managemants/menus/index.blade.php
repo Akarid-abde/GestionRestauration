@@ -86,7 +86,7 @@
 											onclick="
 											event.preventDefault();
 									if(confirm('Voulez vous supprimer la table {{$menu->id}} ?'))
-												document.getElementById({{$menu->id}}).submit()	
+									   document.getElementById({{$menu->id}}).submit()	
 											"  
 											class="btn btn-danger">
 											<i class="fas fa-trash"></i>

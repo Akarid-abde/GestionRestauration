@@ -89,7 +89,11 @@
 									<option disabled="true" selected="true">Choisir Une Categorie
 									</option>
 										@foreach($categories as $category)
-										<option value="{{ $category->id }}">
+										<option 
+										<?php if ($category->id == $menus->category_id):  ?>
+											selected="true"
+										<?php endif ?> 
+										value="{{ $category->id }}">
 										{{$category->title}}
 										</option>
 										@endforeach

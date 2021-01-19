@@ -99,7 +99,7 @@ return [
 
     'custom'   => [
         'image' => [
-            'required' => 'Le champ :attribute est obligatoire.'
+            'required' => 'Le champ :attribute est obligatoire.',
             'image' => 'type de fichier n\'est pas valid',
             'mimes' =>  'les type d\'image accepter sont png,jpg,jpge',
             'max' => 'il doit inserer image de 2048 kilobyte',

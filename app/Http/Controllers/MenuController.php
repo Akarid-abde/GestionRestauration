@@ -61,7 +61,7 @@ class MenuController extends Controller
         ]);
         //store data
         // dd($request->all());
-        $menu = $request->image;
+        // $menu = $request->image;
         if($request->hasFile("image")){
             // unlink(public_path('images/menus/'.$menu->image));
             $file = $request->image;
@@ -121,13 +121,13 @@ class MenuController extends Controller
     {
         $menu = menu::find($id);
         //validateur
-        $this->validate($request,[
-            'title' => "required|min:3|unique:menus,title",
-            'description' => "required|min:5",
-            'image' => "required|image|mimes:png,jpg,jpeg|max:2048",
-            'price' => "required|min:3|numeric",
-            'category_id' => "required|numeric"
-        ]);
+        // $this->validate($request,[
+        //     'title' => "required|min:3|unique:menus,title",
+        //     'description' => "required|min:5",
+        //     'image' => "image|mimes:png,jpg,jpeg|max:2048",
+        //     'price' => "required|numeric",
+        //     'category_id' => "required|numeric",
+        // ]);
         //store data
         if($request->hasFile("image")){
             unlink(public_path('images/menus/'.$menu->image));
@@ -136,6 +136,7 @@ class MenuController extends Controller
             $file->move(public_path('images/menus/'),$imageName);
 
         $title  = $request->title;
+        dd($request->all());
         menu::create([
             'title'  => $title,
             'slug' => Str::slug($title),
@@ -151,19 +152,18 @@ class MenuController extends Controller
         ]); 
         }else
         {
+        // dd($request->all());
         $title  = $request->title;
         $menu->update([
-            'title'  => $request->title,
+            'title'  => $title,
             'slug' => Str::slug($title),
             'description' => $request->description,
             'price' => $request->price,
             'category_id' => $request->category_id,
-            'image' => $imageName,
         ]);
         //redirect User
-
         return redirect("/Menu")->with([
-            "success" => "Menu Ajoute avec Success" 
+            "success" => "Menu Modifier avec Success" 
 
         ]); 
 
@@ -179,6 +179,7 @@ class MenuController extends Controller
     public function destroy($id)
     {
          $menu = menu::find($id);
+        unlink(public_path('images/menus/'.$menu->image));
          $menu->delete();
         return redirect("/Menu")->with([
             "success" => "Menu Supprision avec Success" 
