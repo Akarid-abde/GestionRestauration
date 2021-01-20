@@ -98,9 +98,11 @@
 									</td>
 									</tr>
 									@endforeach
-									
 								</tbody>
 							</table>
+							<div class="col-8 center mx-auto">
+										{{ $menus->links() }}
+							</div>
 					</div>
 				</div>
 			</div>

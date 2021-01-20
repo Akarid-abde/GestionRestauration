@@ -5,6 +5,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ServantController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PayementController;
+use App\Http\Controllers\SaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,4 +61,9 @@ Route::post('/Menu/store','MenuController@store');
 Route::get('/Menu/delete/{id}','MenuController@destroy');
 Route::put('/Menu/update/{id}','MenuController@update');
 
+#Route for Payement
+Route::resource('/Payement','PayementController');
+
+#Route for Salse
+Route::resource('/Salses','SaleController');
 

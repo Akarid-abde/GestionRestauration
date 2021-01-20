@@ -42,8 +42,10 @@
 									</td>
 									<td>
 										<div class="row mr-4">
-												<a href="{{ url('/edit/'.$category->id) }}"  
-										class="btn btn-warning"><i class="fas fa-edit"></i></a>
+									<a href="{{ url('/edit/'.$category->id) }}"  
+										class="btn btn-warning mr-4">
+										<i class="fas fa-edit"></i>
+									</a>
 
 									<form id="{{$category->id}}" action= "{{url('/delete/'.$category->id)}}"  method="post"> 
 										@csrf
@@ -66,6 +68,9 @@
 									
 								</tbody>
 							</table>
+							<div class="col-8 center mx-auto">
+							{{ $categories->links() }}
+							</div>
 				</div>
 			</div>
 		</div>

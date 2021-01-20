@@ -4,12 +4,13 @@
   	{{ $error }}
   </div>
 @endforeach
+@endif
 
 @if(session()->has("success"))
 <div class="alert alert-success alert-dismissible fade show">
 	<strong>{{ session()->get('success')}}</strong>
 	<button type="button" data-dismiss="alert" class="close">
-		<span class="badge badge-success">&time;</span>
+		<span class="badge badge-success">&times;</span>
 	</button>
 </div>
 @endif
@@ -17,7 +18,7 @@
 <div class="alert alert-success alert-dismissible fade show">
 	<strong>{{ session()->get('warning')}}</strong>
 	<button type="button" data-dismiss="alert" class="close">
-		<span class="badge badge-success">&time;</span>
+		<span class="badge badge-success">&times;</span>
 	</button>
 </div>
 @endif
@@ -25,8 +26,7 @@
 <div class="alert alert-success alert-dismissible fade show">
 	<strong>{{ session()->get('info')}}</strong>
 	<button type="button" data-dismiss="alert" class="close">
-		<span class="badge badge-success">&time;</span>
+		<span class="badge badge-success">&times;</span>
 	</button>
 </div>
-@endif
 @endif
