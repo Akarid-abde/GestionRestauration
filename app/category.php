@@ -9,7 +9,7 @@ class category extends Model
     //
     protected $fillable = ["title","slug"];
 
-    public function menu(){
+    public function menus(){
     	return $this->hasMany(menu::class);
     }
 
