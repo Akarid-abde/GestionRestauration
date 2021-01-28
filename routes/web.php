@@ -66,4 +66,4 @@ Route::resource('/Payement','PayementController');
 
 #Route for Salse
 Route::resource('/Salses','SaleController');
-
+Route::post('/Salses/store','SaleController@store');

@@ -16,12 +16,12 @@ class CreateSaleTableTable extends Migration
         Schema::create('sale_table', function (Blueprint $table) {
             $table->id();
             $table->bigInteger("table_id")->unsigned();
-            $table->bigInteger("sales_id")->unsigned();
+            $table->bigInteger("sale_id")->unsigned();
             $table->foreign("table_id")
             ->references("id")
             ->on("tables")
             ->onDelete("cascade");
-            $table->foreign("sales_id")
+            $table->foreign("sale_id")
             ->references("id")
             ->on("sales")
             ->onDelete("cascade");
@@ -37,6 +37,5 @@ class CreateSaleTableTable extends Migration
     public function down()
     {
         Schema::dropIfExists('sale_table');
-        
     }
 }

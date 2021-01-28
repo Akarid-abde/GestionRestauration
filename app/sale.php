@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class sale extends Model
 {
     //
-     protected $fillable = ["user_id","quantity","total_price","total_received","change","payment_type",
-     "payment_status"];
+     protected $fillable = ["user_id","quantity","total_price","total_received","change","payment_type","payment_status"];
 
 
-     public function menu(){
+     public function menus(){
      	return $this->belongsToMany(menu::class);
      }
 
@@ -19,7 +18,7 @@ class sale extends Model
      	return $this->belongsToMany(Table::class);
      }
 
-     public function servant(){
+     public function servants(){
      	return $this->belongsTo(servant::class);
      }
 }

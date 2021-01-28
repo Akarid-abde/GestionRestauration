@@ -13,7 +13,7 @@ class PayementController extends Controller
      public function index()
     {
          return view("payements.index")->with([
-             "tables" => Table::all(),
+            "tables" => Table::all(),
             "categories"  => category::all(),
             "servants"  => servant::all(),
 

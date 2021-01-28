@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="container">
-<form  id="add-sale" action="url('sales.store')}}" method="post">
+<form action=" {{ url('/Salses/store') }} "  method="post" id="add-sale" >
 	@csrf
 	<div class="row justify-content-center" >
 		<div class="col-md-12">
@@ -41,7 +41,9 @@
 						<div 
 						class="card p-2 mb-2 flex flex-column justify-content-center align-items-center list-group-item-action">
 						<div class="align-self-end">
-							<input type="checkbox" name="table_id[]" 
+							<input 
+							type="checkbox" 
+							name="table_id[]" 
 							id="table"
 							value="{{ $table->id }}" 
 							>
@@ -64,13 +66,81 @@
 						<i class="fa fa-edit"></i>
 					</a>
 				     </div>
+				     @foreach($table->sales as $sal)
+<!-- 				     <h1>{{ $sal->created_at }}</h1>
+				     <h1>{{ Carbon\Carbon::today() }}</h1> -->			     
+				     @if($sal->created_at <= Carbon\Carbon::today())
+				     <div style="border: dashed pink" class="mb-2 mt-2 shadow w-100" id="{{ $sal->id }}">
+				     	<div class="card">
+				     		<div class="card-body d-flex flex-column justify-content-center align-items-center">
+				     			@foreach($sal->menus()->Where("sale_id",$sal->id)->get() as $men)
+				     			<h5 class="font-weight-bold mt-2">
+				     				{{$men->title}}
+				     			</h5>
+				     			<span class="text-muted">
+				     				{{$men->price}} DH
+				     			</span>
+				     			@endforeach
+				     			<h5 class="font-weight-bold mt-2">
+				     			<span class="badge badge-danger">
+				     				Serveur ID : {{ $sal->servant_id }}
+				     			</span>
+				     			</h5>
+				     			<h5 class="font-weight-bold mt-2">
+				     			<span class="badge badge-light">
+				     				Qté  : {{ $sal->quantity }}
+				     			</span>
+				     			</h5>
+				     			<h5 class="font-weight-bold mt-2">
+				     			<span class="badge badge-light">
+				     				Prix  : {{ $sal->total_price }} DH
+				     			</span>
+				     			</h5>
+				     			<h5 class="font-weight-bold mt-2">
+				     			<span class="badge badge-light">
+				     				Total : {{ $sal->total_received }} DH
+				     			</span>
+				     			</h5>
+				     			<h5 class="font-weight-bold mt-2">
+				     			<span class="badge badge-light">
+				     				Reste : {{ $sal->change }} DH
+				     			</span>
+				     			</h5>
+				     			<h5 class="font-weight-bold mt-2">
+				     			<span class="badge badge-light">
+				     				Type de Payeiment : 
+				 {{ $sal->payment_type === "cash" ? "Espéce" : "Carte banciare"}} 
+				     			</span>
+				     			</h5>
+				     			<h5 class="font-weight-bold mt-2">
+				     			<span class="badge badge-light">
+				     				Etat de Payeiment : 
+		         {{ $sal->payment_status === "paid" ? "payé" : "Impayé" }} 
+				     			</span>
+				     			</h5>
+				     			<div class="card-body d-flex flex-column justify-content-center align-items-center">
+				     				<span class="font-weight-bold">
+				     					Restaurant XXX
+				     				</span>
+				     				<span class="font-weight-bold">
+				     					Rue taza Midelt
+				     				</span>
+				     				<span class="font-weight-bold">
+				     					06 87 85 16 84
+				     				</span>
+				     			</div>
+				     		</div>
+				     	</div>
+				     </div>
+				     @endif
+				     @endforeach
 						</div>    
 					</div>
 					@endforeach
 				</div>
 			</div>
 		</div>
-		</div>
+	</div>
 	</div>
      <div class="row justify-content-center mt-2">
      	<div class="col-md-12 card p-3">
@@ -92,10 +162,9 @@
      		</ul>
      		<div class="tab-content" id="pills-tabcontent">
      			@foreach($categories as $category)
-     			<div class="tab-pane fade {{ $category->slug ==='مشروب  ' ? 'show active' : '' }} " 
-     			    id="{{$category->slug}}" 
-     				role="tabpanel"
-     				aria-labelledby="pills-home">
+    <div class="tab-pane fade {{ $category->slug ==='مشروب  ' ? 'show active' : '' }} "id="{{$category->slug}}" 
+     		role="tabpanel"
+     				    aria-labelledby="pills-home">
      				<div class="row">
      					@foreach($category->menus as $menu)
      						<div class="col-md-4 mb-2">
@@ -125,18 +194,21 @@
      						</div>
      					@endforeach
      				</div>
+     				
      				<div class="row">
      					<div class="col-md-6 mx-auto">
      						<div class="form-group">
-     							<select name="servant_id" id="" class="form-control"> 
+     							<select 
+     							name="servant_id" 
+     							id="servant_id" 
+     							class="form-control"> 
      							<option value="" selected disabled>
      								serveur
      							</option>	
      							@foreach($servants as $servant)
-     							<option>
+     							<option value="{{$servant->id}}" >
      								{{ $servant->name }}
      							</option>
-
      							@endforeach
      							</select>
      						</div>
@@ -147,12 +219,14 @@
 									</div>
 									</div>
 									<input 
-									type="Number"  
+									type="number" 
 									name="quantity"
 									class="form-control" 
 									placeholder="Qté"
+									
 									>
 								</div>
+
 							<div class="input-group mb-3">
 									<div class="input-group-pepend">
 									<div class="input-group-text">
@@ -160,13 +234,12 @@
 									</div>
 									</div>
 									<input 
-									type="Number"  
+									type="number"  
 									name="total_price"
 									class="form-control" 
 									placeholder="prix"
+									
 									>
-							
-								
 									<div class="input-group-append">
 									<div class="input-group-text">
 										.00									
@@ -181,19 +254,19 @@
 									</div>
 									</div>
 									<input 
-									type="Number"  
+									type="number" 
 									name="total_received"
 									class="form-control" 
 									placeholder="Total"
-									>
-							
-								
+									
+									>								
 									<div class="input-group-append">
 									<div class="input-group-text">
 										.00									
 									</div>
 									</div>
 								</div>
+
 								<div class="input-group mb-3">
 									<div class="input-group-pepend">
 									<div class="input-group-text">
@@ -201,21 +274,20 @@
 									</div>
 									</div>
 									<input 
-									type="Number"  
-									name="Change"
+									type="number" 
+									name="change"
 									class="form-control" 
 									placeholder="Reste"
 									>
-							
-								
 									<div class="input-group-append">
 									<div class="input-group-text">
 										.00									
 									</div>
 									</div>
 								</div>
-						<div class="form-group">
-     							<select name="payemant_type" id="" class="form-control"> 
+
+						 <div class="form-group">
+     						<select name="payment_type" id="" class="form-control"> 
      							<option value="" selected disabled>
      								Type de Paiement
      							</option> 	
@@ -225,10 +297,11 @@
      							<option value="Card">
      								Carte Bancaire
      							</option>
-     							</select>
+     						</select>
      					</div>	
+
      					<div class="form-group">
-     							<select name="payemant_status" id="" class="form-control"> 
+     						<select name="payment_status" id="" class="form-control"> 
      							<option value="" selected disabled>
      								Etat de Paiement
      							</option> 	
@@ -238,8 +311,9 @@
      							<option value="unpaid">
      								Impayé
      							</option>
-     							</select>
+     						</select>
      					</div>
+
      					<div class="form-group">
      						<button
      						 onclick="event.preventDefault();
@@ -251,13 +325,12 @@
      					</div>
 
      					    </div>
-     					</div>
+     				</div>
      				</div>
      			@endforeach
      			</div>
      		</div>
      	</div>
-     </div>
 </form>
 </div>
 @endsection

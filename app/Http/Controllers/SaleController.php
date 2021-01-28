@@ -35,7 +35,35 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validation 
+        $this->validate($request,[
+        "table_id" => "required",
+        "menu_id" => "required",
+        "servant_id" => "required",
+        "quantity" => "required|numeric",
+        "total_price" => "required|numeric",
+        "total_received" => "required|numeric",
+        "change" => "required|numeric",        
+        "payment_type" => "required",
+        "payment_status" => "required",
+        ]);
+        // store data
+        // dd($request->all());
+        $sale = new sale();
+        $sale->servant_id = $request->servant_id;
+        $sale->quantity = $request->quantity;
+        $sale->total_price = $request->total_price;
+        $sale->total_received = $request->total_received;
+        $sale->change = $request->change;
+        $sale->payment_type = $request->payment_type;
+        $sale->payment_status = $request->payment_status;
+        $sale->save();
+        $sale->menus()->sync($request->menu_id);
+        $sale->tables()->sync($request->table_id);
+        //redirect 
+        return redirect('/home')->with([
+            "success" => "paiement effectué avec success"
+        ]);
     }
 
     /**

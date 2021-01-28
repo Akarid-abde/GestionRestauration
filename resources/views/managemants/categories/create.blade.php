@@ -20,7 +20,8 @@
 								@csrf
 								<div class="form-group">
 									<input 
-									type="text"  id="title" 
+									type="text"  
+									id="title" 
 									name="title"
 									class="form-control" 
 									placeholder="Title" 
