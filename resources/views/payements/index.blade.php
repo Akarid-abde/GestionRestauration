@@ -66,10 +66,11 @@
 						<i class="fa fa-edit"></i>
 					</a>
 				     </div>
+
 				     @foreach($table->sales as $sal)
-<!-- 				     <h1>{{ $sal->created_at }}</h1>
+<!-- 				   <h1>{{ $sal->created_at }}</h1>
 				     <h1>{{ Carbon\Carbon::today() }}</h1> -->			     
-				     @if($sal->created_at <= Carbon\Carbon::today())
+				     @if($sal->created_at >= Carbon\Carbon::today())
 				     <div style="border: dashed pink" class="mb-2 mt-2 shadow w-100" id="{{ $sal->id }}">
 				     	<div class="card">
 				     		<div class="card-body d-flex flex-column justify-content-center align-items-center">
@@ -194,8 +195,10 @@
      						</div>
      					@endforeach
      				</div>
-     				
-     				<div class="row">
+     				</div>
+     			@endforeach
+     			</div>
+     			<div class="row">
      					<div class="col-md-6 mx-auto">
      						<div class="form-group">
      							<select 
@@ -219,14 +222,12 @@
 									</div>
 									</div>
 									<input 
-									type="number" 
+									type="Number" 
 									name="quantity"
 									class="form-control" 
 									placeholder="Qté"
-									
 									>
 								</div>
-
 							<div class="input-group mb-3">
 									<div class="input-group-pepend">
 									<div class="input-group-text">
@@ -234,11 +235,10 @@
 									</div>
 									</div>
 									<input 
-									type="number"  
+									type="Number"  
 									name="total_price"
 									class="form-control" 
 									placeholder="prix"
-									
 									>
 									<div class="input-group-append">
 									<div class="input-group-text">
@@ -254,11 +254,10 @@
 									</div>
 									</div>
 									<input 
-									type="number" 
+									type="Number"
 									name="total_received"
 									class="form-control" 
 									placeholder="Total"
-									
 									>								
 									<div class="input-group-append">
 									<div class="input-group-text">
@@ -274,7 +273,7 @@
 									</div>
 									</div>
 									<input 
-									type="number" 
+									type="Number" 
 									name="change"
 									class="form-control" 
 									placeholder="Reste"
@@ -323,12 +322,8 @@
      							Valider
      						</button>
      					</div>
-
-     					    </div>
+     			    </div>
      				</div>
-     				</div>
-     			@endforeach
-     			</div>
      		</div>
      	</div>
 </form>

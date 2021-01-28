@@ -48,7 +48,7 @@ class SaleController extends Controller
         "payment_status" => "required",
         ]);
         // store data
-        // dd($request->all());
+        //dd($request->all());
         $sale = new sale();
         $sale->servant_id = $request->servant_id;
         $sale->quantity = $request->quantity;
@@ -61,7 +61,7 @@ class SaleController extends Controller
         $sale->menus()->sync($request->menu_id);
         $sale->tables()->sync($request->table_id);
         //redirect 
-        return redirect('/home')->with([
+        return redirect('/Payement')->with([
             "success" => "paiement effectué avec success"
         ]);
     }
