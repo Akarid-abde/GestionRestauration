@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\sale;
+use App\servant;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -83,9 +84,20 @@ class SaleController extends Controller
      * @param  \App\sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function edit(sale $sale)
+    public function edit(sale $id)
     {
-        //
+        $sale = sale::find($id);
+        // //get sale table
+        // $tables = $sale->tables()->where('sale_id',$sale->id)->get();
+        // //get menu table
+        // $menus = $sale->menus()->where('sale_id',$sale->id)->get();
+
+        return view("managemants.sales.edite")->with([
+            // "tables" => $tables,
+            // "menu" => $menus,
+            "sale" => $sale,
+            "servants" => servant::all()
+        ]);
     }
 
     /**

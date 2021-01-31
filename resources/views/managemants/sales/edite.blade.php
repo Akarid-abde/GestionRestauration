@@ -4,8 +4,9 @@
 @section('content')
 
 <div class="container">
-<form action=" {{ url('/Salses/store') }} "  method="post" id="add-sale" >
+<form action=" {{ url('/Salses/update/'.$sale->id) }}"  method="post" id="add-sale" >
 	@csrf
+	method('PUT')
 	<div class="row justify-content-center" >
 		<div class="col-md-12">
 		<div class="row">
@@ -17,32 +18,18 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="my-2 col-md-3">
-				<h3 class="text-muted border-bottom">
-					{{Carbon\Carbon::now()}}
-				</h3>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12 mb-3">
-				<div class="form-group">
-					<a href="{{ url('sales.index')}}" class="btn btn-outline-secondary float-right">
-						Tous Les Ventes
-					</a>
-				</div>
-			</div>
-		</div>
+
 		<div class="card">
 			<div class="card-body">
 				<div class="row">
-					@foreach($tables as $table)
+	@foreach($tables as $table)
 					<div class="col-md-3">
 						<div 
 						class="card p-2 mb-2 flex flex-column justify-content-center align-items-center list-group-item-action">
 						<div class="align-self-end">
 							<input 
 							type="checkbox" 
+							checked="true" 
 							name="table_id[]" 
 							id="table"
 							value="{{ $table->id }}" 
@@ -52,24 +39,9 @@
 						<span class="mt-2 text-muted font-weight-bold">
 							{{ $table->name }}
 						</span>
-						@if($table->status !=0)
-						<span class="badge badge-success">
-							Desponible
-						</span>
-						@else
-						<span class="badge badge-danger">
-							Non Desponible
-						</span>
-						@endif
-					<div class="d-flex flex-column justify-content-between align-items-center">
-					<a href="{{ url('/Tables/edit/'.$table->id) }}" class="btn btn-outline-warning float-right">
-						<i class="fa fa-edit"></i>
-					</a>
-				     </div>
+						<hr>
 
-				     @foreach($table->sales as $sal)
-<!-- 				   <h1>{{ $sal->created_at }}</h1>
-				     <h1>{{ Carbon\Carbon::today() }}</h1> -->			     
+	<!-- 	@foreach($table->sales as $sal)		     
 				     @if($sal->created_at >= Carbon\Carbon::today())
 				     <div style="border: dashed pink" class="mb-2 mt-2 shadow w-100" id="{{ $sal->id }}">
 				     	<div class="card">
@@ -130,18 +102,11 @@
 				     					06 87 85 16 84
 				     				</span>
 				     			</div>
-				     		</div>
+				     	</div>
 				     	</div>
 				     </div>
-				     <div class="mt-2 d-flex justify-content-center">
-				     	<a href="{{ url('/Salses/edit/'.$sal->id) }}" 
-				     	class="btn btn-sm btn-warning">
-				     	<i class="fa fa-edit">
-				     	</i>
-				     	</a>
-				     </div>
 				     @endif
-				     @endforeach
+		@endforeach -->
 						</div>    
 					</div>
 					@endforeach
@@ -152,29 +117,8 @@
 	</div>
      <div class="row justify-content-center mt-2">
      	<div class="col-md-12 card p-3">
-     		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-     			@foreach($categories as $category)
-     			<li class="nav-item">
-     				<a href="#{{ $category->slug }}" 
-     				class="nav-link mr-1  {{ $category->slug ==='مشروب  ' ? 'active' : '' }}"
-     				id="{{$category->slug}}-tab"
-     				data-toggle="pill"
-     				role="tab"
-     				aria-controls="{{$category->slug}}"
-     				aria-selected="true"
-     				>
-     				{{ $category->title }}
-     				</a>
-     			</li>
-     			@endforeach
-     		</ul>
-     		<div class="tab-content" id="pills-tabcontent">
-     			@foreach($categories as $category)
-    <div class="tab-pane fade {{ $category->slug ==='مشروب  ' ? 'show active' : '' }} "id="{{$category->slug}}" 
-     		role="tabpanel"
-     				    aria-labelledby="pills-home">
      				<div class="row">
-     					@foreach($category->menus as $menu)
+     					@foreach($menus as $menu)
      						<div class="col-md-4 mb-2">
      							<div class="card h-100">
      								<div class="card-body d-flex flex-column 
@@ -182,6 +126,7 @@
      								<div class="align-self-end">
      									<input 
      									type="checkbox" 
+     									checked="true" 
      									name="menu_id[]" 
 							            id="menu"
 							            value="{{ $menu->id }}">
@@ -203,7 +148,7 @@
      					@endforeach
      				</div>
      				</div>
-     			@endforeach
+     			
      			</div>
      			<div class="row">
      					<div class="col-md-6 mx-auto">
@@ -233,6 +178,7 @@
 									name="quantity"
 									class="form-control" 
 									placeholder="Qté"
+									value="{{ $sale->quantity }}" 
 									>
 								</div>
 							<div class="input-group mb-3">
@@ -246,6 +192,7 @@
 									name="total_price"
 									class="form-control" 
 									placeholder="prix"
+									value="{{ $sale->total_price }}" 
 									>
 									<div class="input-group-append">
 									<div class="input-group-text">
@@ -265,6 +212,7 @@
 									name="total_received"
 									class="form-control" 
 									placeholder="Total"
+									value="{{ $sale->total_received }}" 
 									>								
 									<div class="input-group-append">
 									<div class="input-group-text">
@@ -284,6 +232,7 @@
 									name="change"
 									class="form-control" 
 									placeholder="Reste"
+									value="{{ $sale->change }}" 
 									>
 									<div class="input-group-append">
 									<div class="input-group-text">
@@ -297,10 +246,18 @@
      							<option value="" selected disabled>
      								Type de Paiement
      							</option> 	
-     							<option value="cash">
+     							<option value="cash"
+                                <?php if ($sal->payment_type == "cash"): ?>
+												selected='true'
+								<?php endif ?>
+     							>
      								Espéce
      							</option>
-     							<option value="Card">
+     							<option value="Card"
+                                <?php if ($sal->payment_type == "Card"): ?>
+												selected='true'
+								<?php endif ?>
+     							>
      								Carte Bancaire
      							</option>
      						</select>
@@ -311,10 +268,18 @@
      							<option value="" selected disabled>
      								Etat de Paiement
      							</option> 	
-     							<option value="paid">
+     							<option value="paid"
+                                <?php if ($sal->payment_status == "paid"): ?>
+												selected='true'
+								<?php endif ?>
+     							>
      								Payé
      							</option>
-     							<option value="unpaid">
+     							<option value="unpaid"
+                                <?php if ($sal->payment_status == "unpaid"): ?>
+												selected='true'
+								<?php endif ?>
+     							>
      								Impayé
      							</option>
      						</select>

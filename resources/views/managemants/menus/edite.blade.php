@@ -100,7 +100,7 @@
 									<select name="category_id"  id="category_id" class="form-control">
 										@foreach($categories as $category)
 										<option value="{{$category->id}}"
-											<?php if ($category->id == $menus->category->id): ?>
+										<?php if ($category->id == $menus->category->id): ?>
 												selected='true'
 											<?php endif ?>
 										>
